@@ -81,7 +81,7 @@
     root().innerHTML = App.topbar('DSA Zero to Hero') + `
       <h1>DSA <span class="accent">Zero to Hero</span> — Pattern Tracker</h1>
       <div class="sub">Complete roadmap to crack product-based company interviews · Python</div>
-      <div class="nav-help" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><span>New here? → <a href="#/help">Read START HERE first</a></span><a href="E:\DSA_Cracking\dsa-projectassets/js/floor.html" target="_blank" style="font-family:inherit;font-size:12px;padding:7px 16px;border-radius:20px;background:var(--accent);color:#1a1205;text-decoration:none;font-weight:600">📋 THE FLOOR</a></div>
+      <div class="nav-help" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><span>New here? → <a href="#/help">Read START HERE first</a></span><a href="#/floor" style="font-family:inherit;font-size:12px;padding:7px 16px;border-radius:20px;background:var(--accent);color:#1a1205;text-decoration:none;font-weight:600">📋 THE FLOOR</a></div>
       <div class="note"><b>Tip:</b> Click any row with a <span style="color:var(--accent)">●</span> to open its training page. Tick the box only after you've cleared its Drill Set rubric. Progress saves in this browser.</div>
       <div class="summary">
         <div class="card"><div class="val">26</div><div class="lbl">Total</div></div>
@@ -140,9 +140,72 @@
   }
 
   /* ---- ROUTE DISPATCH ---- */
+  /* ---- FLOOR PAGE ---- */
+  function renderFloor(){
+    const T1=[
+      [1,'Sliding Window','fixed · variable · string window'],
+      [2,'Two Pointers','opposite ends · same direction · two arrays'],
+      [4,'HashMap / Frequency Counter','complement · frequency · grouping · first-seen'],
+      [7,'Binary Search','classic · rotated array · on the answer'],
+      [15,'Tree DFS','pre/in/post order · path problems · recursion'],
+      [16,'Tree BFS','level order · level variants · tree shortest path'],
+      [18,'Graph DFS / BFS','grid · connected components · shortest path'],
+      [21,'Backtracking','subsets · permutations · combinations · constraints'],
+      [23,'1D Dynamic Programming','stairs · house robber · coin change']
+    ];
+    const T2=[
+      [3,'Prefix Sum','range queries · subarray sum = k · modulo trick'],
+      [5,"Kadane's Algorithm",'max subarray · indices · product · circular'],
+      [6,'Sorting + Intervals','merge · insert · greedy-by-end · sweep line'],
+      [8,'Stack / Monotonic Stack','matching · next greater/smaller · expression eval'],
+      [26,'Heap / Priority Queue','top-k · merge-k · running median'],
+      [12,'Fast & Slow Pointers','cycle detection · middle · cycle start']
+    ];
+    const rows = list => list.map(([n,name,sub])=>`<tr><td class="num">${n}</td><td class="pname">${name}</td><td class="lc">${sub}</td></tr>`).join('');
+
+    root().innerHTML = App.topbar(`<a href="#/tracker">← Back to Tracker</a>`) + `
+      <h1>The <span class="accent">Floor</span> — what you actually need</h1>
+      <div class="sub">Not 26. Fifteen patterns get you interview-ready for most high-paying companies. The rest is bonus.</div>
+      <div class="note"><b>Read this when you feel overwhelmed.</b> Sub-patterns are one idea wearing different outfits, not separate work. Nobody masters all 26 before interviewing. Tier 1 fluent + Tier 2 recognised = ready.</div>
+
+      <div class="phase">
+        <div class="ph-head" style="cursor:default">
+          <span class="ph-badge" style="background:var(--hard)">TIER 1</span>
+          <span class="ph-title">Non-negotiable — be fluent (solve mediums without hints)</span>
+          <span class="ph-meta">9 patterns</span>
+        </div>
+        <table><tr><th>#</th><th>Pattern</th><th>Sub-patterns</th></tr>${rows(T1)}</table>
+      </div>
+
+      <div class="phase">
+        <div class="ph-head" style="cursor:default">
+          <span class="ph-badge" style="background:var(--med)">TIER 2</span>
+          <span class="ph-title">Strongly expected — recognise + solve mediums</span>
+          <span class="ph-meta">6 patterns</span>
+        </div>
+        <table><tr><th>#</th><th>Pattern</th><th>Sub-patterns</th></tr>${rows(T2)}</table>
+      </div>
+
+      <div class="tip"><b>TIER 3 — optional, skip for now (11):</b> 2D DP · Knapsack · Topological Sort · Union Find · Tries · KMP / Z-algorithm · Divide &amp; Conquer · Matrix tricks · in-place Linked List · BST-specific ops · advanced graph algorithms. These separate "Google-hard" from "well-paid offer." You can interview successfully without them. Come back AFTER the floor is solid.</div>
+
+      <div class="rubric">
+        <h3>Will the floor crack interviews?</h3>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li>Yes — for the large majority of high-paying companies (Amazon, Microsoft, Uber, well-funded unicorns).</li>
+          <li>Softer "depends" for the very hardest bars (Google's hardest loops, top quant) — those also want Tier 3 + heavy mocks.</li>
+          <li>Patterns are necessary, not sufficient: also need ~200–350 solved problems + 10–20 mock interviews + spaced repetition.</li>
+          <li>The floor makes you <b>capable</b>. Reps and mocks <b>convert</b> capability into offers. You need both — no shortcut around the reps.</li>
+          <li>You're roughly 7 of 15. The distance left is small. The fear is normal and means nothing about your ability. Stopping is the only real failure.</li>
+        </ul>
+        <div class="verdict">Ignore the 26. Look only at this page. One pattern at a time.</div>
+      </div>
+      <footer>THE FLOOR · Open this whenever the big list feels heavy · One pattern at a time</footer>`;
+  }
+
   window.renderRoute = function(){
     const h = location.hash || '#/tracker';
     if(h.startsWith('#/help')) return renderHelp();
+    if(h.startsWith('#/floor')) return renderFloor();
     if(h.startsWith('#/pattern/')){
       const n = parseInt(h.split('/')[2], 10);
       if(!isNaN(n)) return renderPattern(n);
